@@ -11,7 +11,7 @@ final class TMDBService: BaseService {
     static let shared = TMDBService()
 
     private let baseUrl: String
-    private let apiKey = "01471a148b9cca6a938122fb4b3bdf45"
+    private let apiKey = ""
     private let apiVersion = "3"
     
     let baseImageUrl: String
