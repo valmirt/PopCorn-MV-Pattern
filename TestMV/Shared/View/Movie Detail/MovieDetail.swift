@@ -15,7 +15,7 @@ struct MovieDetail: View {
         ScrollView {
             VStack(spacing: 0) {
                 if let detail = store.detail {
-                    GeometryReader { proxy in
+                    ZStack(alignment: .bottom) {
                         AsyncImage(url: detail.backdropURL) { image in
                             image
                                 .resizable()
@@ -27,20 +27,20 @@ struct MovieDetail: View {
                                 .frame(width: 150, height: 150)
                                 .foregroundColor(.gray)
                         }
-                        .frame(width: proxy.size.width, height: 250)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
+                        .frame(width: UIScreen.main.bounds.size.width, height: 300)
+                        .clipped()
+                        
                         LinearGradient(
                             gradient: Gradient(colors: [.clear, .black]),
                             startPoint: .top, endPoint: .bottom
                         )
                         .frame(height: 100)
-                        
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(detail.title)
                             .font(.title)
                             .lineLimit(2)
-                            .padding(.horizontal)
                         
                         HStack(alignment: .top) {
                             Text(detail.originalTitle)
@@ -53,11 +53,9 @@ struct MovieDetail: View {
                             Text(detail.releaseDate)
                                 .font(.body)
                         }
-                        .padding(.horizontal)
                         
                         Text(detail.genres)
                             .lineLimit(1)
-                            .padding(.horizontal)
                         
                         HStack {
                             Text(detail.runtime)
@@ -67,7 +65,6 @@ struct MovieDetail: View {
                                 .italic()
                                 .lineLimit(1)
                         }
-                        .padding(.horizontal)
                         
                         HStack {
                             Label {
@@ -81,7 +78,6 @@ struct MovieDetail: View {
                                 .lineLimit(1)
                         }
                         .padding(.top)
-                        .padding(.horizontal)
 
                         HStack {
                             Label {
@@ -94,26 +90,25 @@ struct MovieDetail: View {
                             Text("Revenue: \(detail.revenue)")
                                 .lineLimit(1)
                         }
-                        .padding(.horizontal)
-
-                        
+    
                         Text(detail.overview)
                             .font(.body)
                             .multilineTextAlignment(.leading)
                             .padding(.top)
-                            .padding(.horizontal)
-                        
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(detail.credit) { item in
-                                    CreditView(credit: item)
-                                        .frame(width: 120)
-                                }
+                            
+                    }
+                    .padding(.horizontal)
+                    .padding(.top)
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(detail.credit) { item in
+                                CreditView(credit: item)
+                                    .frame(width: 120)
                             }
                         }
-                        .padding(.vertical)
                     }
-                    .padding(.top, 150)
+                    .padding(.vertical)
                 }
             }
         }

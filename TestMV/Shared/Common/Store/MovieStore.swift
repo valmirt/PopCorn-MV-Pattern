@@ -109,7 +109,7 @@ final class MovieStore: ObservableObject {
                 .shared
                 .createURL(
                     baseURL: TMDBService.shared.baseImageUrl,
-                    path: "\(TMDBService.shared.imageW500)/\(backdropPath)"
+                    path: "\(TMDBService.shared.imageW780)/\(backdropPath)"
                 )
         }
         detail = Detail(
